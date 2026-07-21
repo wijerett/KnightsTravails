@@ -9,7 +9,7 @@ function onBoard(row, col) {
     return row >= 0 && row <= 7 && col >= 0 && col <= 7;
 };
 
-function knightMoves([row, col]) {
+function getKnightMoves([row, col]) {
     const moves = [];
 
     for (const [dRow, dCol] of knight_offsets) {
@@ -23,6 +23,30 @@ function knightMoves([row, col]) {
     return moves;
 }
 
+function knightMoves(start, end) {
+    const queue = [[start]];
+    const visited = new Set();
+
+    visited.add(start.toString());
+    
+    while (queue.length > 0) {
+        const path = queue.shift();
+        const currentSquare = path[path.length - 1];
+        if (currentSquare.toString() === end.toString()) {
+            return path;
+        }
+
+        const neighbors = getKnightMoves(currentSquare);
+
+        for (const neighbor of neighbors) {
+            if (!visited.has(neighbor.toString())) {
+                visited.add(neighbor.toString());
+                queue.push([...path, neighbor]);
+            }
+        }
+    }
+}
 
 
-console.log(knightMoves([0, 0], [1, 2]));
+
+console.log(knightMoves([3, 3], [7, 7]));
