@@ -33,6 +33,7 @@ function knightMoves(start, end) {
         const path = queue.shift();
         const currentSquare = path[path.length - 1];
         if (currentSquare.toString() === end.toString()) {
+            console.log(`Congrats you made it in ${path.length - 1} moves!`)
             return path;
         }
 
@@ -49,4 +50,4 @@ function knightMoves(start, end) {
 
 
 
-console.log(knightMoves([3, 3], [7, 7]));
+console.log(knightMoves([0, 0], [3, 3]));
